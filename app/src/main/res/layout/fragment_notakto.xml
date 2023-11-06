@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
+
+    <LinearLayout
+        android:id="@+id/layout_LinearLayoutMain"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent">
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_LinearLayoutRangee1"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent">
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_LinearLayoutRangee2"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent">
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_LinearLayoutRangee3"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent">
+    </LinearLayout>
+
+</androidx.appcompat.widget.LinearLayoutCompat>
