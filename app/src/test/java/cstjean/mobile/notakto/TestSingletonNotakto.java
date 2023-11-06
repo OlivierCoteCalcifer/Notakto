@@ -22,6 +22,7 @@ public class TestSingletonNotakto {
     @Before
     public void setUp() {
         notakto = SingletonNotakto.getInstance();
+        notakto.reinitialiser();
     }
 
     /**
@@ -62,13 +63,17 @@ public class TestSingletonNotakto {
         notakto.jouerCoup(0, 0);
         notakto.jouerCoup(1, 1);
         notakto.jouerCoup(2, 2);
-        assertEquals("Joueur 2 a gagné", notakto.updateTextAndTurn());
+        assertEquals("Félicitations! \n Le joueur 2 a gagné!!!",
+                notakto.updateTextAndTurn());
+        assertEquals("Joueur 1 a perdu...", notakto.messagePerdant());
         notakto.reinitialiser();
         notakto.jouerCoup(0, 0);
         notakto.jouerCoup(1, 2);
         notakto.jouerCoup(1, 1);
         notakto.jouerCoup(1, 0);
-        assertEquals("Joueur 1 a gagné", notakto.updateTextAndTurn());
+        assertEquals("Félicitations! \n Le joueur 1 a gagné!!!",
+                notakto.updateTextAndTurn());
+        assertEquals("Joueur 2 a perdu...", notakto.messagePerdant());
         notakto.reinitialiser();
         assertEquals("Au tour du joueur 1", notakto.updateTextAndTurn());
         notakto.jouerCoup(0, 0);

@@ -110,6 +110,7 @@ public class SingletonNotakto {
             }
         }
     }
+
     /**
      * Cette méthode ajoute un X dans layoutNotakto on renvoie un boolean au MainActivity pour
      * valider le coup et changer le text dans le bouton.
@@ -139,9 +140,23 @@ public class SingletonNotakto {
      */
     public String updateTextAndTurn() {
         if (partieTerminee) {
-            return tourJoueur1 ? "Joueur 2 a gagné" : "Joueur 1 a gagné";
+            return tourJoueur1 ? "Félicitations! \n Le joueur 2 a gagné!!!" :
+                    "Félicitations! \n Le joueur 1 a gagné!!!";
         }
         return tourJoueur1 ? "Au tour du joueur 1" : "Au tour du joueur 2";
+    }
+
+    /**
+     * Cette methode renvoie le message pour le toast avec le message du joueur qui a perdu.
+     *
+     * @return String avec le message "Joueur X a perdu!.
+     */
+    public String messagePerdant() {
+        if (tourJoueur1) {
+            return "Joueur 1 a perdu...";
+        } else {
+            return "Joueur 2 a perdu...";
+        }
     }
 
     /**

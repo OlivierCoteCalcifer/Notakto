@@ -1,7 +1,6 @@
 package cstjean.mobile.notakto;
 
 import android.os.Bundle;
-
 import androidx.appcompat.app.AppCompatActivity;
 
 /**
