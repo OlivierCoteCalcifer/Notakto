@@ -11,6 +11,8 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
@@ -57,7 +59,7 @@ public class NotaktoFragment extends Fragment {
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         if (savedInstanceState != null) {
             for (int i = 0; i < buttonsArray.length; i++) {
@@ -69,7 +71,7 @@ public class NotaktoFragment extends Fragment {
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         // Save the state of your buttons (e.g., which ones are marked 'X')
         for (int i = 0; i < buttonsArray.length; i++) {
@@ -115,6 +117,7 @@ public class NotaktoFragment extends Fragment {
                 Button button = new Button(getContext());
                 int buttonIndex = i * 3 + j;
                 buttonsArray[buttonIndex] = button;
+                button.setTag("btn" + buttonIndex);
                 button.setLayoutParams(params);
                 switch (i) {
                     case 0:
@@ -141,9 +144,7 @@ public class NotaktoFragment extends Fragment {
     private void startGame(View view) {
         for (int i = 0; i < buttonsArray.length; i++) {
             final int index = i;
-            buttonsArray[i].setOnClickListener(v -> {
-                onButtonClick(index);
-            });
+            buttonsArray[i].setOnClickListener(v -> onButtonClick(index));
         }
 
         Button resetButton = view.findViewById(R.id.btnRestart);
@@ -156,7 +157,7 @@ public class NotaktoFragment extends Fragment {
     public void onButtonReset() {
         notakto.reinitialiser();
         for (int j = 0; j < 9; j++) { // Start from 0
-            buttonsArray[j].setText(String.valueOf((notakto.CASE_NON_COCHE)));
+            buttonsArray[j].setText(String.valueOf((SingletonNotakto.CASE_NON_COCHE)));
         }
         textView.setText(notakto.updateTextAndTurn());
         compteurToast = 0;
@@ -172,7 +173,7 @@ public class NotaktoFragment extends Fragment {
         int ligne = buttonIndex / 3;
         int colonne = buttonIndex % 3;
         if (notakto.jouerCoup(ligne, colonne)) {
-            buttonsArray[buttonIndex].setText(String.valueOf(notakto.CASE_COCHE));
+            buttonsArray[buttonIndex].setText(String.valueOf(SingletonNotakto.CASE_COCHE));
             textView.setText(notakto.updateTextAndTurn());
         }
         if (notakto.isPartieTerminee() && compteurToast == 0) {
