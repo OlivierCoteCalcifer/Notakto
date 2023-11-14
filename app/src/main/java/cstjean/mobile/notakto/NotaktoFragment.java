@@ -36,6 +36,18 @@ public class NotaktoFragment extends Fragment {
      */
     private int compteurToast = 0;
 
+    /**
+     * Cette methode crée la vue avec les boutons.
+     *
+     * @param inflater           The LayoutInflater object that can be used to inflate
+     *                           any views in the fragment,
+     * @param container          If non-null, this is the parent view that the fragment's
+     *                           UI should be attached to.  The fragment should not add the view itself,
+     *                           but this can be used to generate the LayoutParams of the view.
+     * @param savedInstanceState If non-null, this fragment is being re-constructed
+     *                           from a previous saved state as given here.
+     * @return la vue du notakto
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -65,6 +77,12 @@ public class NotaktoFragment extends Fragment {
         }
     }
 
+    /**
+     * Cette méthode ajoute dynamiquement les boutons, tout en allant chercher les LinearLayout
+     * nécessaires pour le jeu.
+     *
+     * @param view Vue du notakto.
+     */
     private void setUpBoardView(View view) {
         LinearLayout layoutMain = view.findViewById(R.id.layout_LinearLayoutMain);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
@@ -115,6 +133,11 @@ public class NotaktoFragment extends Fragment {
         }
     }
 
+    /**
+     * Cette méthode ajoute les "OnClickListener" pour chaque bouton du jeu.
+     *
+     * @param view Vue du notakto.
+     */
     private void startGame(View view) {
         for (int i = 0; i < buttonsArray.length; i++) {
             final int index = i;

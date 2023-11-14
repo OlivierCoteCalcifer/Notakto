@@ -2,6 +2,7 @@ package cstjean.mobile.notakto;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
@@ -160,5 +161,14 @@ public class TestSingletonNotakto {
         notakto.jouerCoup(1, 1);
         notakto.jouerCoup(0, 2);
         assertTrue(notakto.isPartieTerminee());
+    }
+
+    /**
+     * Verifie si deux instances sont identitiques.
+     */
+    @Test
+    public void testSingletonNotakto() {
+        SingletonNotakto singleton2 = SingletonNotakto.getInstance();
+        assertSame(notakto, singleton2);
     }
 }
