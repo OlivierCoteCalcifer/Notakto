@@ -160,7 +160,7 @@ public class SingletonNotakto {
     }
 
     /**
-     * Verfie les combinaisons gagnante.
+     * Verifie les combinaisons gagnante.
      *
      * @param layoutNotakto Recoit le layout de la partie
      * @param combinaison   Combinaisoin gagnante.

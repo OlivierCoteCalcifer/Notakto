@@ -1,5 +1,4 @@
 <resources>
     <string name="app_name">Notakto</string>
     <string name="r_initialiser">Réinitialiser</string>
-    <string name="au_tour_du_joueur">Au tour du joueur</string>
 </resources>

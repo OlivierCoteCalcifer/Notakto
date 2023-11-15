@@ -11,7 +11,6 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -96,6 +95,7 @@ public class NotaktoFragment extends Fragment {
         // Ajout du textview pour le tour des joueurs.
         textView = new TextView(getContext());
         textView.setText(notakto.updateTextAndTurn());
+        textView.setTag("textTurn");
         textView.setLayoutParams(new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT, // Width
                 LinearLayout.LayoutParams.WRAP_CONTENT  // Height
@@ -144,7 +144,7 @@ public class NotaktoFragment extends Fragment {
     private void startGame(View view) {
         for (int i = 0; i < buttonsArray.length; i++) {
             final int index = i;
-            buttonsArray[i].setOnClickListener(v -> onButtonClick(index));
+            buttonsArray[i].setOnClickListener(v -> onButtonClick(index, view));
         }
 
         Button resetButton = view.findViewById(R.id.btnRestart);
@@ -168,8 +168,9 @@ public class NotaktoFragment extends Fragment {
      * un toast pour le joueur perdant.
      *
      * @param buttonIndex Index du bouton du notakto dans buttonArray.
+     * @param view Vue du notakto.
      */
-    public void onButtonClick(int buttonIndex) {
+    public void onButtonClick(int buttonIndex, View view) {
         int ligne = buttonIndex / 3;
         int colonne = buttonIndex % 3;
         if (notakto.jouerCoup(ligne, colonne)) {
@@ -178,6 +179,13 @@ public class NotaktoFragment extends Fragment {
         }
         if (notakto.isPartieTerminee() && compteurToast == 0) {
             compteurToast++;
+            TextView textPerdant = new TextView(getContext());
+            textPerdant.setText(notakto.messagePerdant());
+            textPerdant.setTag("textPerdant");
+            LinearLayout layout = new LinearLayout(getContext());
+            LinearLayout layoutMain = view.findViewById(R.id.layout_LinearLayoutMain);
+            layout.addView(textPerdant);
+            layoutMain.addView(layout);
             Toast.makeText(getContext(), notakto.messagePerdant(), Toast.LENGTH_LONG).show();
         }
     }
