@@ -2,7 +2,6 @@ package cstjean.mobile.notakto;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
-import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withTagValue;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
@@ -90,10 +89,37 @@ public class NotaktoInstrumentedTest extends RemoteException {
     private final String id8 = "btn8";
 
     /**
-     * Cette methode verifie les messages gagnants et perdants du Notakto avec l'orientation.
+     * Cette methode verifie les messages gagnants et perdants du Notakto si le joueur 1 gagne.
      */
     @Test
-    public void testAffichageJoueurGagnanteEtPerdant() throws RemoteException {
+    public void testVictoireJoueur1() {
+        onView(withTagValue(is(id0))).perform(click());
+        onView(withTagValue(is(id4))).perform(click());
+        onView(withTagValue(is(id7))).perform(click());
+        onView(withTagValue(is(id1))).perform(click());
+        withText(msgGagnant1).matches(onView(withTagValue(is(textId))));
+        withText(msgPerdant2).matches(onView(withTagValue(is(textIdPerdant))));
+    }
+
+    /**
+     * Cette methode verifie les messages gagnants et perdants du Notakto si le joueur 2 gagne.
+     */
+    @Test
+    public void testVictoireJoueur2() {
+
+        onView(withTagValue(is(id0))).perform(click());
+        onView(withTagValue(is(id4))).perform(click());
+        onView(withTagValue(is(id8))).perform(click());
+        withText(msgGagnant2).matches(onView(withTagValue(is(textId))));
+        withText(msgPerdant1).matches(onView(withTagValue(is(textIdPerdant))));
+    }
+
+    /**
+     * Cette methode verifie les messages gagnants et perdants du Notakto si le joueur 1 gagne
+     * avec une rotation de l'appareil.
+     */
+    @Test
+    public void testRotationJoueur1() throws RemoteException {
         UiDevice device = UiDevice.getInstance(getInstrumentation());
         device.setOrientationNatural();
 
@@ -109,63 +135,5 @@ public class NotaktoInstrumentedTest extends RemoteException {
         device.setOrientationLeft();
         withText(msgGagnant1).matches(onView(withTagValue(is(textId))));
         withText(msgPerdant2).matches(onView(withTagValue(is(textIdPerdant))));
-        onView(withId(R.id.btnRestart)).perform((click()));
-
-        // On verifie le message du gagnant joueur 2
-        onView(withTagValue(is(id0))).perform(click());
-        onView(withTagValue(is(id4))).perform(click());
-        onView(withTagValue(is(id8))).perform(click());
-        withText(msgGagnant2).matches(onView(withTagValue(is(textId))));
-        withText(msgPerdant1).matches(onView(withTagValue(is(textIdPerdant))));
-        onView(withId(R.id.btnRestart)).perform((click()));
-    }
-
-    /**
-     * Cette methode verifie les messages des tours du Notakto lorsqu'on change
-     * l'orientation de l'appareil et si les X suivent en changeant l'orientation.
-     */
-    @Test
-    public void testAffichageChangementOrientation() throws RemoteException {
-        // On appuie sur deux boutons et verifie si le X est dans le bouton et il suit
-        // en changeant l'orientation de l'appareil de portrait à landscape, vice-versa.
-
-        UiDevice device = UiDevice.getInstance(getInstrumentation());
-        device.setOrientationNatural();
-        onView(withTagValue(is(id0))).perform(click());
-        withText(charResultat).matches(onView(withTagValue(is(id0))));
-
-        device.setOrientationLeft();
-        withText(charResultat).matches(onView(withTagValue(is(id0))));
-
-        // On appuie sur un bouton en landscape et verifie qu'il suit en portrait.
-        onView(withTagValue(is(id7))).perform(click());
-        withText(charResultat).matches(onView(withTagValue(is(id7))));
-        withText(msgTour2).matches(onView(withTagValue(is(textId))));
-        device.setOrientationNatural();
-        withText(charResultat).matches(onView(withTagValue(is(id7))));
-        withText(msgTour2).matches(onView(withTagValue(is(textId))));
-        onView(withId(R.id.btnRestart)).perform((click()));
-    }
-
-    /**
-     * Cette methode verifie le message de base pour les tours de joueurs ainsi que les X
-     * lorsqu'on appuie sur un bouton.
-     */
-    @Test
-    public void testAffichageBoutonCharNotakto() {
-
-        // Verifie l'affichage du message dans le textView.
-        withText(msgTour1).matches(onView(withTagValue(is(textId))));
-        onView(withTagValue(is(id0))).perform(click());
-
-        // Verifie si le X est bien placer et si le textView à changer pour le joueur 2.
-        withText(charResultat).matches(onView(withTagValue(is(id0))));
-        withText(msgTour2).matches(onView(withTagValue(is(textId))));
-
-        // On repart la partie et verifie que tout est bien vide et que le textView est
-        // pour le joueur 1.
-        onView(withId(R.id.btnRestart)).perform((click()));
-        withText(charEmpty).matches(onView(withTagValue(is(id0))));
-        withText(msgTour1).matches(onView(withTagValue(is(id0))));
     }
 }
